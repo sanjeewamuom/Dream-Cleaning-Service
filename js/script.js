@@ -190,3 +190,26 @@ if (carousel) {
     initializeCarousel();
   }
 }
+
+const projectFilters = document.querySelector("[data-project-filters]");
+
+if (projectFilters) {
+  const filterButtons = Array.from(projectFilters.querySelectorAll("[data-filter]"));
+  const projectCards = Array.from(document.querySelectorAll(".projects-gallery__card[data-category]"));
+
+  const applyProjectFilter = (filterValue) => {
+    projectCards.forEach((card) => {
+      const categories = card.dataset.category || "";
+      const shouldShow = filterValue === "all" || categories.split(" ").includes(filterValue);
+      card.classList.toggle("is-hidden", !shouldShow);
+    });
+  };
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      filterButtons.forEach((item) => item.classList.remove("is-active"));
+      button.classList.add("is-active");
+      applyProjectFilter(button.dataset.filter || "all");
+    });
+  });
+}
