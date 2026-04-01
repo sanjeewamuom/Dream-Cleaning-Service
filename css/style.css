@@ -351,53 +351,117 @@ body {
   background: url("../images/Services/CTA.jpg") center / cover no-repeat;
 }
 
-/* ************TESTIMONIAL**************** */
+/* ************RESULTS CAROUSEL**************** */
 
-.testimonial__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.results-carousel__container {
+  max-width: 100%;
+  padding: 6.5rem 0;
+}
+
+.results-carousel__title {
   text-align: center;
-  flex-direction: column;
-  padding-top: 8.75rem;
-  padding-bottom: 8.75rem;
+  margin-bottom: 0.75rem;
+  font-size: clamp(2rem, 4vw, 3rem);
 }
 
-.testiomonial__caption {
-  margin-bottom: 4rem;
-  font-weight: 600;
-  text-transform: uppercase;
+.results-carousel__text {
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto 2.5rem;
+  line-height: 150%;
+  letter-spacing: 0.02em;
 }
 
-.testimonial__title {
-  margin-bottom: 4rem;
-  font-size: 2rem;
-  max-width: 40.75rem;
-  line-height: 136%;
-  font-weight: 500;
+.results-carousel__viewport {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 0 2.75rem;
+  touch-action: pan-y;
 }
 
-.item-testimonial__image {
-  max-width: 64px;
-  margin: 0 auto;
-  margin-bottom: 1.063rem;
-  height: 64px;
+.results-carousel__track {
+  --slide-width: clamp(320px, 68vw, 780px);
+  --slide-height: clamp(220px, 42vw, 470px);
+  --slide-gap: 1.25rem;
+  --drag-offset: 0px;
+  display: flex;
+  gap: var(--slide-gap);
+  align-items: center;
+  will-change: transform;
+  transform: translateX(var(--track-offset, 0px)) translateX(var(--drag-offset));
+  transition: transform 0.45s ease;
+  opacity: 0;
 }
 
-.item-testimonial__image img {
+.results-carousel__track.is-ready {
+  opacity: 1;
+}
+
+.results-carousel__track.is-dragging {
+  transition: none;
+  cursor: grabbing;
+}
+
+.results-carousel__slide {
+  flex: 0 0 var(--slide-width);
+  width: var(--slide-width);
+  height: var(--slide-height);
+  border-radius: 1.125rem;
+  overflow: hidden;
+  opacity: 0.35;
+  transform: scale(0.86);
+  transition: transform 0.45s ease, opacity 0.45s ease, box-shadow 0.45s ease;
+}
+
+.results-carousel__slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+.results-carousel__slide.is-active {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 14px 32px rgba(26, 96, 126, 0.2);
+}
+
+.results-carousel__slide.is-adjacent {
+  opacity: 0.62;
+  transform: scale(0.92);
+}
+
+.results-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  background-color: rgba(230, 247, 250, 0.96);
+  color: var(--color-primary);
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  z-index: 3;
+  transition: all 0.3s ease;
 }
 
-.item-testimonial__title {
-  margin-bottom: 0.25rem;
-  font-weight: 600;
+.results-carousel__arrow--prev {
+  left: 0.75rem;
 }
 
-.item-testimonial__caption {
-  font-size: 0.938rem;
+.results-carousel__arrow--next {
+  right: 0.75rem;
+}
+
+.results-carousel__arrow:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 /* ****************OUTRO**************** */
@@ -1398,13 +1462,8 @@ body {
     padding-bottom: 4.375rem;
   }
 
-  .testimonial__title {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .testiomonial__caption {
-    margin-bottom: 2rem;
+  .results-carousel__container {
+    padding: 4.375rem 0;
   }
 
   .outro__container {
@@ -1441,6 +1500,44 @@ body {
 }
 
 @media (max-width: 530px) {
+  .results-carousel__container {
+    padding: 3.25rem 0;
+  }
+
+  .results-carousel__text {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    padding: 0 0.938rem;
+  }
+
+  .results-carousel__viewport {
+    padding: 0 1rem;
+  }
+
+  .results-carousel__track {
+    --slide-width: min(86vw, 500px);
+    --slide-height: min(58vw, 340px);
+    --slide-gap: 0.75rem;
+  }
+
+  .results-carousel__slide {
+    border-radius: 0.875rem;
+  }
+
+  .results-carousel__arrow {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1rem;
+  }
+
+  .results-carousel__arrow--prev {
+    left: 0.25rem;
+  }
+
+  .results-carousel__arrow--next {
+    right: 0.25rem;
+  }
+
   .reviews__row {
     grid-template-columns: 1fr;
   }
